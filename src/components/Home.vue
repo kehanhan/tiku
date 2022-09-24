@@ -6,9 +6,13 @@
     <h2>铁路职业考试题库</h2>
   </header>
   <main>
-    <button>客运员</button>
-    <button id="vip">货运员</button>
-    <button>助理值班员</button>
+    <router-link to="keyun">
+      <button>客运员</button>
+    </router-link>
+    <router-link to="huoyun">
+      <button id="vip">货运员</button>
+    </router-link>
+    <router-link to="zhuli"> <button>助理值班员</button></router-link>
   </main>
 </template>
 
@@ -16,14 +20,18 @@
 header {
   text-align: center;
   img {
-    margin: 2rem;
+    margin: 3rem;
   }
 }
 main {
   margin-top: 10vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+
+  a {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
   button {
     margin: 1rem;
   }
