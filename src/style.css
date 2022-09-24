@@ -52,11 +52,6 @@ body {
   min-height: 100vh;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
 button {
   border-radius: 8px;
   border: 1px solid transparent;
@@ -87,5 +82,20 @@ button:focus-visible {
   button {
     background-color: #fff;
     border: 1px solid #eee;
+  }
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --table-background: #212121 !important;
+    --table-tbody-tr-hover-background: #424242 !important;
+    color: rgba(255, 255, 255, 0.87);
+    background-color: #242424;
+  }
+  a:hover {
+    color: #535bf2;
+  }
+  button {
+    background-color: #1a1a1a;
+    border: 1px solid #1a1a1a;
   }
 }
