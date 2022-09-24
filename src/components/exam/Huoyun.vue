@@ -23,7 +23,7 @@
     </var-table>
   </main>
   <footer>
-    <var-button round type="success" class="fab left" @click="n > 0 && n--"
+    <var-button round type="success" class="fab left" @click="back()"
       ><var-icon name="chevron-left" :size="32"
     /></var-button>
     <span class="index">
@@ -37,11 +37,7 @@
         >{{ n + 1 }}</span
       >/{{ huoyun_db.length }}
     </span>
-    <var-button
-      round
-      type="success"
-      class="fab right"
-      @click="n < huoyun_db.length - 1 && n++"
+    <var-button round type="success" class="fab right" @click="next()"
       ><var-icon name="chevron-right" :size="32"
     /></var-button>
   </footer>
@@ -53,8 +49,16 @@ import huoyun_db from "../../db/huoyun";
 import { ref } from "vue";
 const hash = { 0: "A", 1: "B", 2: "C", 3: "D" };
 
-let n = ref(0);
+let n;
+if (localStorage.getItem("last")) {
+  n = ref(localStorage.getItem("last"));
+} else {
+  n = ref(0);
+}
 
+const saveState = () => {
+  localStorage.setItem("last", n.value);
+};
 const huoyunAnswerList = ref([]);
 if (localStorage.getItem("huoyunAnswerList")) {
   huoyunAnswerList.value = JSON.parse(localStorage.getItem("huoyunAnswerList"));
@@ -71,6 +75,7 @@ const check = (a) => {
       });
       setTimeout(() => {
         n.value++;
+        saveState();
       }, 500);
     } else {
       Snackbar.error({
@@ -84,6 +89,18 @@ const check = (a) => {
       JSON.stringify(huoyunAnswerList.value)
     );
   }
+};
+const back = () => {
+  if (n.value > 0) {
+    n.value--;
+  }
+  saveState();
+};
+const next = () => {
+  if (n.value < huoyun_db.length - 1) {
+    n.value++;
+  }
+  saveState();
 };
 </script>
 
