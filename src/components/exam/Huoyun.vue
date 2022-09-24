@@ -26,7 +26,7 @@
     <var-button round type="success" class="fab left" @click="back()"
       ><var-icon name="chevron-left" :size="32"
     /></var-button>
-    <span class="index">
+    <span class="index" @click="bottom = true">
       <span
         :class="{
           correct:
@@ -40,15 +40,40 @@
     <var-button round type="success" class="fab right" @click="next()"
       ><var-icon name="chevron-right" :size="32"
     /></var-button>
+    <var-popup position="bottom" v-model:show="bottom">
+      <div class="questions">
+        <var-button
+          text
+          outline
+          round
+          class="question"
+          v-for="(question, index) in huoyun_db"
+          :class="{
+            correct:
+              huoyunAnswerList[index] &&
+              huoyunAnswerList[index] === huoyun_db[index].answer,
+            wrong:
+              huoyunAnswerList[index] &&
+              huoyunAnswerList[index] !== huoyun_db[index].answer,
+          }"
+          @click="jump(index)"
+        >
+          {{ index + 1 }}
+        </var-button>
+      </div>
+      <var-button round type="danger" class="fab medium" @click="empty"
+        ><var-icon name="delete" :size="32"
+      /></var-button>
+    </var-popup>
   </footer>
 </template>
 
 <script setup>
-import { Snackbar } from "@varlet/ui";
+import { Dialog, Snackbar } from "@varlet/ui";
 import huoyun_db from "../../db/huoyun";
 import { ref } from "vue";
 const hash = { 0: "A", 1: "B", 2: "C", 3: "D" };
-
+const bottom = ref(false);
 let n;
 if (localStorage.getItem("last")) {
   n = ref(localStorage.getItem("last"));
@@ -80,7 +105,7 @@ const check = (a) => {
     } else {
       Snackbar.error({
         content: "错误",
-        duration: 500,
+        duration: 1000,
       });
     }
     huoyunAnswerList.value[n.value] = a;
@@ -102,9 +127,41 @@ const next = () => {
   }
   saveState();
 };
+const jump = (index) => {
+  n.value = index;
+  bottom.value = false;
+  saveState();
+};
+const empty = async () => actions[await Dialog("确定要删除答题记录吗？")]();
+const actions = {
+  confirm: () => {
+    localStorage.removeItem("huoyunAnswerList");
+    huoyunAnswerList.value = [];
+    localStorage.removeItem("last");
+    n.value = 0;
+    bottom.value = false;
+    saveState();
+    Snackbar.success("已删除");
+  },
+  cancel: () => {
+    Snackbar.error("删除失败");
+  },
+  close: () => Snackbar.info("什么都没发生"),
+};
 </script>
 
 <style lang="scss" scoped>
+.questions {
+  color: black;
+  max-height: 60vh;
+  .question {
+    margin: 0.5rem;
+    max-width: 12vw;
+    max-height: 12vw;
+    min-width: 12vw;
+    min-height: 12vw;
+  }
+}
 .correct {
   color: #57c093 !important;
 }
@@ -149,6 +206,10 @@ footer {
   }
   .right {
     right: 15%;
+  }
+  .medium {
+    left: 50%;
+    transform: translateX(-50%);
   }
 }
 </style>
