@@ -3,6 +3,8 @@ import Home from '../components/Home.vue';
 import Huoyun from '../components/Huoyun.vue';
 import Keyun from '../components/Keyun.vue';
 import Zhuli from '../components/Zhuli.vue';
+import Huoyun_test from '../components/exam/Huoyun.vue';
+
 const router = createRouter({
     history: createWebHistory(),
     routes: [
@@ -18,6 +20,9 @@ const router = createRouter({
         }, {
             path: '/zhuli',
             component: Zhuli,
+        }, {
+            path: '/huoyun_test',
+            component: Huoyun_test,
         }
     ]
 })
