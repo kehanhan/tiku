@@ -1,17 +1,16 @@
 <template>
   <main>
-    <h3>{{ huoyun_db[n].title }}</h3>
+    <h3>{{ zhuli_db[n].title }}</h3>
     <var-table>
       <tbody>
-        <tr v-for="(option, index) in huoyun_db[n].choseList">
+        <tr v-for="(option, index) in zhuli_db[n].choseList">
           <div
             class="option"
             :class="{
-              correct:
-                huoyunAnswerList[n] && hash[index] === huoyun_db[n].answer,
+              correct: zhuliAnswerList[n] && hash[index] === zhuli_db[n].answer,
               wrong:
-                hash[index] === huoyunAnswerList[n] &&
-                hash[index] !== huoyun_db[n].answer,
+                hash[index] === zhuliAnswerList[n] &&
+                hash[index] !== zhuli_db[n].answer,
             }"
             @click="check(hash[index])"
           >
@@ -30,12 +29,12 @@
       <span
         :class="{
           correct:
-            huoyunAnswerList[n] && huoyunAnswerList[n] === huoyun_db[n].answer,
+            zhuliAnswerList[n] && zhuliAnswerList[n] === zhuli_db[n].answer,
           wrong:
-            huoyunAnswerList[n] && huoyunAnswerList[n] !== huoyun_db[n].answer,
+            zhuliAnswerList[n] && zhuliAnswerList[n] !== zhuli_db[n].answer,
         }"
         >{{ n + 1 }}</span
-      >/{{ huoyun_db.length }}
+      >/{{ zhuli_db.length }}
     </span>
     <var-button round type="success" class="fab right" @click="next()"
       ><var-icon name="chevron-right" :size="32"
@@ -47,14 +46,14 @@
           outline
           round
           class="question"
-          v-for="(question, index) in huoyun_db"
+          v-for="(question, index) in zhuli_db"
           :class="{
             correct:
-              huoyunAnswerList[index] &&
-              huoyunAnswerList[index] === huoyun_db[index].answer,
+              zhuliAnswerList[index] &&
+              zhuliAnswerList[index] === zhuli_db[index].answer,
             wrong:
-              huoyunAnswerList[index] &&
-              huoyunAnswerList[index] !== huoyun_db[index].answer,
+              zhuliAnswerList[index] &&
+              zhuliAnswerList[index] !== zhuli_db[index].answer,
           }"
           @click="jump(index)"
         >
@@ -70,30 +69,30 @@
 
 <script setup>
 import { Dialog, Snackbar } from "@varlet/ui";
-import huoyun_db from "../../db/huoyun";
+import zhuli_db from "../../db/zhuli.js";
 import { ref } from "vue";
 const hash = { 0: "A", 1: "B", 2: "C", 3: "D" };
 const bottom = ref(false);
 let n;
-if (localStorage.getItem("last")) {
-  n = ref(localStorage.getItem("last"));
+if (localStorage.getItem("zhuliIndex")) {
+  n = ref(localStorage.getItem("zhuliIndex"));
 } else {
   n = ref(0);
 }
 
 const saveState = () => {
-  localStorage.setItem("last", n.value);
+  localStorage.setItem("zhuliIndex", n.value);
 };
-const huoyunAnswerList = ref([]);
-if (localStorage.getItem("huoyunAnswerList")) {
-  huoyunAnswerList.value = JSON.parse(localStorage.getItem("huoyunAnswerList"));
+const zhuliAnswerList = ref([]);
+if (localStorage.getItem("zhuliAnswerList")) {
+  zhuliAnswerList.value = JSON.parse(localStorage.getItem("zhuliAnswerList"));
 }
 
 const check = (a) => {
-  if (huoyunAnswerList.value[n.value]) {
+  if (zhuliAnswerList.value[n.value]) {
     return;
   } else {
-    if (a === huoyun_db[n.value].answer) {
+    if (a === zhuli_db[n.value].answer) {
       Snackbar.success({
         content: "正确",
         duration: 500,
@@ -108,10 +107,10 @@ const check = (a) => {
         duration: 1000,
       });
     }
-    huoyunAnswerList.value[n.value] = a;
+    zhuliAnswerList.value[n.value] = a;
     localStorage.setItem(
-      "huoyunAnswerList",
-      JSON.stringify(huoyunAnswerList.value)
+      "zhuliAnswerList",
+      JSON.stringify(zhuliAnswerList.value)
     );
   }
 };
@@ -122,7 +121,7 @@ const back = () => {
   saveState();
 };
 const next = () => {
-  if (n.value < huoyun_db.length - 1) {
+  if (n.value < zhuli_db.length - 1) {
     n.value++;
   }
   saveState();
@@ -135,9 +134,9 @@ const jump = (index) => {
 const empty = async () => actions[await Dialog("确定要删除答题记录吗？")]();
 const actions = {
   confirm: () => {
-    localStorage.removeItem("huoyunAnswerList");
-    huoyunAnswerList.value = [];
-    localStorage.removeItem("last");
+    localStorage.removeItem("zhuliAnswerList");
+    zhuliAnswerList.value = [];
+    localStorage.removeItem("zhuliIndex");
     n.value = 0;
     bottom.value = false;
     saveState();

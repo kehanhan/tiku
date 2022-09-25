@@ -1,11 +1,6 @@
 <template>
-  <router-link to="huoyun_test"
-    ><var-button type="success" round large class="fab">
-      <var-icon name="check" :size="32" /> </var-button
-  ></router-link>
-
   <ol>
-    <li v-for="item in huoyun_db">
+    <li v-for="item in zhuli_db">
       <span class="title">{{ item.title }} </span>
       <div class="options">
         <span v-for="(choice, index) in item.choseList">
@@ -20,16 +15,11 @@
 </template>
 
 <script setup>
-import huoyun_db from "../db/huoyun.js";
+import zhuli_db from "../../db/zhuli.js";
 const hash = { 0: "A", 1: "B", 2: "C", 3: "D" };
 </script>
 
 <style lang="scss" scoped>
-.fab {
-  position: fixed;
-  bottom: 5%;
-  right: 5%;
-}
 ol {
   margin-left: 3rem;
   margin-right: 2rem;

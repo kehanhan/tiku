@@ -1,6 +1,6 @@
 <template>
   <ol>
-    <li v-for="item in zhuli_db">
+    <li v-for="item in keyun_db">
       <span class="title">{{ item.title }} </span>
       <div class="options">
         <span v-for="(choice, index) in item.choseList">
@@ -15,7 +15,7 @@
 </template>
 
 <script setup>
-import zhuli_db from "../db/zhuli.js";
+import keyun_db from "../../db/keyun.js";
 const hash = { 0: "A", 1: "B", 2: "C", 3: "D" };
 </script>
 
