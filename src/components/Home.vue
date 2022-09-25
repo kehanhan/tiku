@@ -21,60 +21,35 @@ header {
   text-align: center;
   img {
     margin: 3rem;
+    max-width: 8rem;
+    max-height: 8rem;
   }
 }
 main {
-  margin-top: 10vh;
+  margin-top: 5vh;
 
   a {
     display: flex;
-    flex-direction: column;
     justify-content: center;
   }
 
   button {
+    width: 150px;
     margin: 1rem;
+    border-radius: 50px;
   }
   #vip {
-    font-size: 2em;
-    border-radius: 8px;
-    -webkit-mask-image: linear-gradient(
-      to right,
-      red,
-      orange,
-      yellow,
-      green,
-      cyan,
-      blue,
-      purple
-    );
-    background-image: linear-gradient(
-      to right,
-      red,
-      orange,
-      yellow,
-      green,
-      yellow,
-      orange,
-      red,
-      orange,
-      yellow,
-      green,
-      yellow,
-      orange,
-      red
-    );
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    -webkit-background-size: 200% 100%;
-    animation: bgp 5s infinite linear;
+    font-size: 24px;
+    background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
+    color: white;
+    background-size: 400%;
+    z-index: 1;
+    animation: sun 8s infinite;
   }
-  @-webkit-keyframes bgp {
-    0% {
-      background-position: 0 0;
-    }
+
+  @keyframes sun {
     100% {
-      background-position: -100% 0;
+      background-position: -400% 0;
     }
   }
 }
