@@ -2,7 +2,7 @@
 
 <template>
   <header>
-    <img src="../assets/logo.png" alt="logo" />
+    <img src="../assets/logo.svg" alt="logo" />
     <h2>铁路职业考试题库</h2>
   </header>
   <main>
