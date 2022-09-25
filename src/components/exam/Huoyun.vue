@@ -153,13 +153,14 @@ const actions = {
 <style lang="scss" scoped>
 .questions {
   color: black;
-  max-height: 60vh;
+  max-height: 75vh;
+  text-align: center;
   .question {
     margin: 0.5rem;
-    max-width: 12vw;
-    max-height: 12vw;
-    min-width: 12vw;
-    min-height: 12vw;
+    max-width: 36px;
+    max-height: 36px;
+    min-width: 36px;
+    min-height: 36px;
   }
 }
 .correct {
