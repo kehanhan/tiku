@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from "vue-router";
+import { createRouter, createWebHashHistory } from "vue-router";
 import Home from '../components/Home.vue';
 import Huoyun from '../components/Huoyun.vue';
 import Keyun from '../components/Keyun.vue';
@@ -6,7 +6,7 @@ import Zhuli from '../components/Zhuli.vue';
 import Huoyun_test from '../components/exam/Huoyun.vue';
 
 const router = createRouter({
-    history: createWebHistory(),
+    history: createWebHashHistory(),
     routes: [
         {
             path: '/',
