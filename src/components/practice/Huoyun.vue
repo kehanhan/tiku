@@ -98,10 +98,11 @@ const check = (a) => {
         content: "正确",
         duration: 500,
       });
-      setTimeout(() => {
-        n.value++;
-        saveState();
-      }, 500);
+      n.value < huoyun_db.length - 1 &&
+        setTimeout(() => {
+          n.value++;
+          saveState();
+        }, 500);
     } else {
       Snackbar.error({
         content: "错误",
