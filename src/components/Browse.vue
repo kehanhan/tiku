@@ -12,10 +12,12 @@
       </div>
     </li>
   </ol>
+  <NavBar :type="params.type"></NavBar>
 </template>
 
 <script setup>
 import { useRoute } from "vue-router";
+import NavBar from "@/components/NavBar.vue";
 import huoyunDb from "@/db/huoyun";
 import keyunDb from "@/db/keyun";
 import zhuliDb from "@/db/zhuli";

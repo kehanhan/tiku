@@ -62,12 +62,14 @@
       ><var-icon name="chevron-right" :size="32"
     /></var-button>
   </footer>
+  <NavBar :type="params.type"></NavBar>
 </template>
 
 <script setup>
 import { ref } from "vue";
 import { useRoute } from "vue-router";
 import { Dialog, Snackbar } from "@varlet/ui";
+import NavBar from "@/components/NavBar.vue";
 import huoyunDb from "@/db/huoyun";
 import keyunDb from "@/db/keyun";
 import zhuliDb from "@/db/zhuli";
