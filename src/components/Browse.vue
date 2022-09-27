@@ -1,0 +1,50 @@
+<template>
+  <ol>
+    <li v-for="item in db">
+      <span class="title">{{ item.title }} </span>
+      <div class="options">
+        <span v-for="(choice, index) in item.choseList">
+          <span :class="hashOption[index] === item.answer && 'correct'"
+            >{{ hashOption[index] }}:{{ choice.item }}</span
+          >
+          <br />
+        </span>
+      </div>
+    </li>
+  </ol>
+</template>
+
+<script setup>
+import { useRoute } from "vue-router";
+import huoyunDb from "@/db/huoyun";
+import keyunDb from "@/db/keyun";
+import zhuliDb from "@/db/zhuli";
+
+const { params } = useRoute();
+const hashDb = {
+  huoyun: huoyunDb,
+  keyun: keyunDb,
+  zhuli: zhuliDb,
+};
+const hashOption = { 0: "A", 1: "B", 2: "C", 3: "D" };
+
+window[params.type + "Db"] = hashDb[params.type];
+const db = window[params.type + "Db"];
+</script>
+
+<style lang="scss" scoped>
+ol {
+  margin-left: 3rem;
+  margin-right: 2rem;
+}
+.title {
+  font-weight: bolder;
+}
+.options {
+  padding: 0.5rem;
+}
+.correct {
+  color: red;
+  font-weight: bold;
+}
+</style>
