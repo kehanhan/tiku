@@ -1,44 +1,45 @@
 <template>
   <main>
-    <h3>{{ zhuli_db[n].title }}</h3>
+    <h3>{{ db[id].title }}</h3>
     <var-table>
       <tbody>
-        <tr v-for="(option, index) in zhuli_db[n].choseList">
+        <tr v-for="(option, index) in db[id].choseList">
           <div
             class="option"
             :class="{
-              correct: zhuliAnswerList[n] && hash[index] === zhuli_db[n].answer,
+              correct: answerList[id] && hashOption[index] === db[id].answer,
               wrong:
-                hash[index] === zhuliAnswerList[n] &&
-                hash[index] !== zhuli_db[n].answer,
+                hashOption[index] === answerList[id] &&
+                hashOption[index] !== db[id].answer,
             }"
-            @click="check(hash[index])"
+            @click="check(hashOption[index])"
           >
-            <span class="number">{{ hash[index] }} .</span>
+            <span class="number">{{ hashOption[index] }} .</span>
             <span class="text">{{ option.item }}</span>
           </div>
         </tr>
       </tbody>
     </var-table>
   </main>
+
   <footer>
     <var-button round type="success" class="fab left" @click="back()"
       ><var-icon name="chevron-left" :size="32"
     /></var-button>
+
     <span class="index" @click="bottom = true">
       <span
         :class="{
-          correct:
-            zhuliAnswerList[n] && zhuliAnswerList[n] === zhuli_db[n].answer,
-          wrong:
-            zhuliAnswerList[n] && zhuliAnswerList[n] !== zhuli_db[n].answer,
+          correct: answerList[id] && answerList[id] === db[id].answer,
+          wrong: answerList[id] && answerList[id] !== db[id].answer,
         }"
-        >{{ n + 1 }}</span
-      >/{{ zhuli_db.length }}
+        >{{ id + 1 }}</span
+      >/{{ db.length }}
     </span>
     <var-button round type="success" class="fab right" @click="next()"
       ><var-icon name="chevron-right" :size="32"
     /></var-button>
+
     <var-popup position="bottom" v-model:show="bottom">
       <div class="questions">
         <var-button
@@ -46,14 +47,11 @@
           outline
           round
           class="question"
-          v-for="(question, index) in zhuli_db"
+          v-for="(question, index) in db"
           :class="{
             correct:
-              zhuliAnswerList[index] &&
-              zhuliAnswerList[index] === zhuli_db[index].answer,
-            wrong:
-              zhuliAnswerList[index] &&
-              zhuliAnswerList[index] !== zhuli_db[index].answer,
+              answerList[index] && answerList[index] === db[index].answer,
+            wrong: answerList[index] && answerList[index] !== db[index].answer,
           }"
           @click="jump(index)"
         >
@@ -68,76 +66,95 @@
 </template>
 
 <script setup>
-import { Dialog, Snackbar } from "@varlet/ui";
-import zhuli_db from "../../db/zhuli.js";
 import { ref } from "vue";
-const hash = { 0: "A", 1: "B", 2: "C", 3: "D" };
+import { useRoute } from "vue-router";
+import { Dialog, Snackbar } from "@varlet/ui";
+import huoyunDb from "@/db/huoyun";
+import keyunDb from "@/db/keyun";
+import zhuliDb from "@/db/zhuli";
+
+const { params } = useRoute();
+
+const hashDb = {
+  huoyun: huoyunDb,
+  keyun: keyunDb,
+  zhuli: zhuliDb,
+};
+const hashOption = { 0: "A", 1: "B", 2: "C", 3: "D" };
+
+window[params.type + "Db"] = hashDb[params.type];
+window[params.type + "Id"] = 0;
+window[params.type + "AnswerList"] = [];
+
+const db = window[params.type + "Db"];
+const id = ref(window[params.type + "Id"]);
+const answerList = ref(window[params.type + "AnswerList"]);
 const bottom = ref(false);
-let n;
-if (localStorage.getItem("zhuliIndex")) {
-  n = ref(localStorage.getItem("zhuliIndex"));
-} else {
-  n = ref(0);
+
+if (localStorage.getItem(params.type + "Id")) {
+  id.value = localStorage.getItem(params.type + "Id");
+}
+
+if (localStorage.getItem(params.type + "AnswerList")) {
+  answerList.value = JSON.parse(
+    localStorage.getItem(params.type + "AnswerList")
+  );
 }
 
 const saveState = () => {
-  localStorage.setItem("zhuliIndex", n.value);
+  localStorage.setItem(params.type + "Id", id.value);
 };
-const zhuliAnswerList = ref([]);
-if (localStorage.getItem("zhuliAnswerList")) {
-  zhuliAnswerList.value = JSON.parse(localStorage.getItem("zhuliAnswerList"));
-}
-
-const check = (a) => {
-  if (zhuliAnswerList.value[n.value]) {
+const back = () => {
+  if (id.value > 0) {
+    id.value--;
+  }
+  saveState();
+};
+const next = () => {
+  if (id.value < db.length - 1) {
+    id.value++;
+  }
+  saveState();
+};
+const check = (answer) => {
+  if (answerList.value[id.value]) {
     return;
   } else {
-    if (a === zhuli_db[n.value].answer) {
+    if (answer === db[id.value].answer) {
       Snackbar.success({
         content: "正确",
         duration: 500,
       });
-      setTimeout(() => {
-        n.value++;
-        saveState();
-      }, 500);
+      id.value < db.length - 1 &&
+        setTimeout(() => {
+          id.value++;
+          saveState();
+        }, 500);
     } else {
       Snackbar.error({
         content: "错误",
         duration: 1000,
       });
     }
-    zhuliAnswerList.value[n.value] = a;
+    answerList.value[id.value] = answer;
     localStorage.setItem(
-      "zhuliAnswerList",
-      JSON.stringify(zhuliAnswerList.value)
+      params.type + "AnswerList",
+      JSON.stringify(answerList.value)
     );
   }
 };
-const back = () => {
-  if (n.value > 0) {
-    n.value--;
-  }
-  saveState();
-};
-const next = () => {
-  if (n.value < zhuli_db.length - 1) {
-    n.value++;
-  }
-  saveState();
-};
 const jump = (index) => {
-  n.value = index;
+  id.value = index;
   bottom.value = false;
   saveState();
 };
 const empty = async () => actions[await Dialog("确定要删除答题记录吗？")]();
 const actions = {
   confirm: () => {
-    localStorage.removeItem("zhuliAnswerList");
-    zhuliAnswerList.value = [];
-    localStorage.removeItem("zhuliIndex");
-    n.value = 0;
+    localStorage.removeItem(params.type + "AnswerList");
+    answerList.value = [];
+    localStorage.removeItem(params.type + "Id");
+    id.value = 0;
     bottom.value = false;
     saveState();
     Snackbar.success("已删除");

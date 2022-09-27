@@ -6,13 +6,13 @@
     <h2>铁路职业考试题库</h2>
   </header>
   <main>
-    <router-link to="keyun">
+    <router-link to="/practice/keyun">
       <button>客运员</button>
     </router-link>
-    <router-link to="huoyun">
+    <router-link to="/practice/huoyun">
       <button id="vip">货运员</button>
     </router-link>
-    <router-link to="zhuli"> <button>助理值班员</button></router-link>
+    <router-link to="/practice/zhuli"> <button>助理值班员</button></router-link>
   </main>
 </template>
 
