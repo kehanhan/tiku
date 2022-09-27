@@ -1,4 +1,26 @@
 <template>
+  <var-popup position="bottom" v-model:show="bottom">
+    <div class="questions">
+      <var-button
+        text
+        outline
+        round
+        class="question"
+        v-for="(question, index) in db"
+        :class="{
+          correct: answerList[index] && answerList[index] === db[index].answer,
+          wrong: answerList[index] && answerList[index] !== db[index].answer,
+        }"
+        @click="jump(index)"
+      >
+        {{ index + 1 }}
+      </var-button>
+    </div>
+    <var-button round type="danger" class="delete" @click="empty"
+      ><var-icon name="delete" :size="32"
+    /></var-button>
+  </var-popup>
+
   <main>
     <h3>{{ db[id].title }}</h3>
     <var-table>
@@ -39,29 +61,6 @@
     <var-button round type="success" class="fab right" @click="next()"
       ><var-icon name="chevron-right" :size="32"
     /></var-button>
-
-    <var-popup position="bottom" v-model:show="bottom">
-      <div class="questions">
-        <var-button
-          text
-          outline
-          round
-          class="question"
-          v-for="(question, index) in db"
-          :class="{
-            correct:
-              answerList[index] && answerList[index] === db[index].answer,
-            wrong: answerList[index] && answerList[index] !== db[index].answer,
-          }"
-          @click="jump(index)"
-        >
-          {{ index + 1 }}
-        </var-button>
-      </div>
-      <var-button round type="danger" class="fab medium" @click="empty"
-        ><var-icon name="delete" :size="32"
-      /></var-button>
-    </var-popup>
   </footer>
 </template>
 
@@ -74,7 +73,6 @@ import keyunDb from "@/db/keyun";
 import zhuliDb from "@/db/zhuli";
 
 const { params } = useRoute();
-
 const hashDb = {
   huoyun: huoyunDb,
   keyun: keyunDb,
@@ -179,6 +177,12 @@ const actions = {
     min-height: 36px;
   }
 }
+.delete {
+  position: fixed;
+  bottom: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+}
 .correct {
   color: #57c093 !important;
 }
@@ -210,11 +214,12 @@ main {
 footer {
   .fab {
     position: fixed;
-    bottom: 5%;
+    bottom: 12%;
   }
   .index {
     position: fixed;
-    bottom: 6%;
+    font-size: 20px;
+    bottom: 13%;
     left: 50%;
     transform: translateX(-50%);
   }
@@ -223,10 +228,6 @@ footer {
   }
   .right {
     right: 15%;
-  }
-  .medium {
-    left: 50%;
-    transform: translateX(-50%);
   }
 }
 </style>
