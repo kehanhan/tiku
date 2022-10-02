@@ -1,5 +1,5 @@
 <template>
-  <var-popup position="bottom" v-model:show="bottom">
+  <var-popup position="bottom" v-model:show="bottomRef">
     <div class="questions">
       <var-button
         text
@@ -8,8 +8,10 @@
         class="question"
         v-for="(question, index) in db"
         :class="{
-          correct: answerList[index] && answerList[index] === db[index].answer,
-          wrong: answerList[index] && answerList[index] !== db[index].answer,
+          correct:
+            answerListRef[index] && answerListRef[index] === db[index].answer,
+          wrong:
+            answerListRef[index] && answerListRef[index] !== db[index].answer,
         }"
         @click="jump(index)"
       >
@@ -22,17 +24,18 @@
   </var-popup>
 
   <main>
-    <h3>{{ db[id].title }}</h3>
+    <h3>{{ db[idRef].title }}</h3>
     <var-table>
       <tbody>
-        <tr v-for="(option, index) in db[id].choseList">
+        <tr v-for="(option, index) in db[idRef].choseList">
           <div
             class="option"
             :class="{
-              correct: answerList[id] && hashOption[index] === db[id].answer,
+              correct:
+                answerListRef[idRef] && hashOption[index] === db[idRef].answer,
               wrong:
-                hashOption[index] === answerList[id] &&
-                hashOption[index] !== db[id].answer,
+                hashOption[index] === answerListRef[idRef] &&
+                hashOption[index] !== db[idRef].answer,
             }"
             @click="check(hashOption[index])"
           >
@@ -49,13 +52,15 @@
       ><var-icon name="chevron-left" :size="32"
     /></var-button>
 
-    <span class="index" @click="bottom = true">
+    <span class="index" @click="bottomRef = true">
       <span
         :class="{
-          correct: answerList[id] && answerList[id] === db[id].answer,
-          wrong: answerList[id] && answerList[id] !== db[id].answer,
+          correct:
+            answerListRef[idRef] && answerListRef[idRef] === db[idRef].answer,
+          wrong:
+            answerListRef[idRef] && answerListRef[idRef] !== db[idRef].answer,
         }"
-        >{{ parseInt(id) + 1 }}</span
+        >{{ parseInt(idRef) + 1 }}</span
       >/{{ db.length }}
     </span>
     <var-button round type="success" class="fab right" @click="next()"
@@ -85,49 +90,56 @@ const hashOption = { 0: "A", 1: "B", 2: "C", 3: "D" };
 window[params.type + "Db"] = hashDb[params.type];
 window[params.type + "Id"] = 0;
 window[params.type + "AnswerList"] = [];
+window[params.type + "WrongList"] = [];
 
 const db = window[params.type + "Db"];
-const id = ref(window[params.type + "Id"]);
-const answerList = ref(window[params.type + "AnswerList"]);
-const bottom = ref(false);
+const idRef = ref(window[params.type + "Id"]);
+const answerListRef = ref(window[params.type + "AnswerList"]);
+const wrongListRef = ref(window[params.type + "WrongList"]);
+const bottomRef = ref(false);
 
 if (localStorage.getItem(params.type + "Id")) {
-  id.value = localStorage.getItem(params.type + "Id");
+  idRef.value = localStorage.getItem(params.type + "Id");
 }
 
 if (localStorage.getItem(params.type + "AnswerList")) {
-  answerList.value = JSON.parse(
+  answerListRef.value = JSON.parse(
     localStorage.getItem(params.type + "AnswerList")
+  );
+}
+if (localStorage.getItem(params.type + "WrongList")) {
+  wrongListRef.value = JSON.parse(
+    localStorage.getItem(params.type + "WrongList")
   );
 }
 
 const saveState = () => {
-  localStorage.setItem(params.type + "Id", id.value);
+  localStorage.setItem(params.type + "Id", idRef.value);
 };
 const back = () => {
-  if (id.value > 0) {
-    id.value--;
+  if (idRef.value > 0) {
+    idRef.value--;
   }
   saveState();
 };
 const next = () => {
-  if (id.value < db.length - 1) {
-    id.value++;
+  if (idRef.value < db.length - 1) {
+    idRef.value++;
   }
   saveState();
 };
 const check = (answer) => {
-  if (answerList.value[id.value]) {
+  if (answerListRef.value[idRef.value]) {
     return;
   } else {
-    if (answer === db[id.value].answer) {
+    if (answer === db[idRef.value].answer) {
       Snackbar.success({
         content: "正确",
         duration: 500,
       });
-      id.value < db.length - 1 &&
+      idRef.value < db.length - 1 &&
         setTimeout(() => {
-          id.value++;
+          idRef.value++;
           saveState();
         }, 500);
     } else {
@@ -135,27 +147,33 @@ const check = (answer) => {
         content: "错误",
         duration: 1000,
       });
+      !wrongListRef.value.includes(parseInt(idRef.value)) &&
+        wrongListRef.value.push(parseInt(idRef.value));
+      localStorage.setItem(
+        params.type + "WrongList",
+        JSON.stringify(wrongListRef.value)
+      );
     }
-    answerList.value[id.value] = answer;
+    answerListRef.value[idRef.value] = answer;
     localStorage.setItem(
       params.type + "AnswerList",
-      JSON.stringify(answerList.value)
+      JSON.stringify(answerListRef.value)
     );
   }
 };
 const jump = (index) => {
-  id.value = index;
-  bottom.value = false;
+  idRef.value = index;
+  bottomRef.value = false;
   saveState();
 };
 const empty = async () => actions[await Dialog("确定要删除答题记录吗？")]();
 const actions = {
   confirm: () => {
     localStorage.removeItem(params.type + "AnswerList");
-    answerList.value = [];
+    answerListRef.value = [];
     localStorage.removeItem(params.type + "Id");
-    id.value = 0;
-    bottom.value = false;
+    idRef.value = 0;
+    bottomRef.value = false;
     saveState();
     Snackbar.success("已删除");
   },
@@ -198,7 +216,6 @@ main {
   h3 {
     margin-bottom: 2rem;
   }
-
   .option {
     display: flex;
     align-items: center;
