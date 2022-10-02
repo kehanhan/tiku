@@ -55,7 +55,7 @@
           correct: answerList[id] && answerList[id] === db[id].answer,
           wrong: answerList[id] && answerList[id] !== db[id].answer,
         }"
-        >{{ id + 1 }}</span
+        >{{ parseInt(id) + 1 }}</span
       >/{{ db.length }}
     </span>
     <var-button round type="success" class="fab right" @click="next()"
