@@ -9,6 +9,9 @@
     <router-link :to="'/practice/' + type" class="item" active-class="selected"
       ><var-icon class="icon" name="checkbox-marked-circle" />刷题</router-link
     >
+    <router-link :to="'/wrong/' + type" class="item" active-class="selected"
+      ><var-icon class="icon" name="notebook" />错题</router-link
+    >
   </nav>
 </template>
 
@@ -48,6 +51,7 @@ nav {
   height: 60px;
   position: fixed;
   width: 100%;
+  left: 0;
   bottom: 0;
   > .item {
     display: flex;
