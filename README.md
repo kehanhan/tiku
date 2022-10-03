@@ -1,7 +1,27 @@
-# Vue 3 + Vite
+# 铁路职业技能鉴定考试题库
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## 项目简介
 
-## Recommended IDE Setup
+> 技术栈：Vue3 + Vite + Vue Router + SCSS+ Varlet UI
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar)
+## 项目功能
+
+- [x] 题目浏览
+- [x] 刷题
+- [x] 错题本
+- [ ] 模拟考试
+- [x] 自适应深色模式
+- [ ] 响应式布局
+
+## 开发帮助
+
+```bash
+# 安装依赖
+pnpm install
+
+# 开发调试
+pnpm run dev
+
+# 项目部署
+pnpm build
+```
