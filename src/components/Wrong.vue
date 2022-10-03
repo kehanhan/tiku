@@ -3,6 +3,7 @@
     <var-icon name="information" :size="64" />
     <p>暂无错题</p>
   </div>
+
   <div v-else>
     <var-popup position="bottom" v-model:show="bottomRef">
       <div class="questions">
@@ -26,6 +27,7 @@
         </var-button>
       </div>
     </var-popup>
+
     <main>
       <h3>{{ db[wrongListRef[wrongIdRef]].title }}</h3>
       <var-table>
@@ -51,11 +53,11 @@
       </var-table>
       <var-button type="success" id="got" @click="got()">已掌握</var-button>
     </main>
+
     <footer>
       <var-button round type="success" class="fab left" @click="back()"
-        ><var-icon name="chevron-left" :size="32"
+        ><var-icon name="chevron-left" :size="24"
       /></var-button>
-
       <span class="index" @click="bottomRef = true">
         <span
           :class="{
@@ -72,7 +74,7 @@
         >/{{ wrongListRef.length }}
       </span>
       <var-button round type="success" class="fab right" @click="next()"
-        ><var-icon name="chevron-right" :size="32"
+        ><var-icon name="chevron-right" :size="24"
       /></var-button>
     </footer>
   </div>
@@ -189,14 +191,13 @@ const jump = (index) => {
   max-height: 75vh;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
-
+  justify-content: center;
   .question {
     margin: 0.5rem;
-    max-width: 36px;
-    max-height: 36px;
-    min-width: 36px;
-    min-height: 36px;
+    max-width: 40px;
+    max-height: 40px;
+    min-width: 40px;
+    min-height: 40px;
   }
 }
 

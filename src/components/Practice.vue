@@ -49,9 +49,8 @@
 
   <footer>
     <var-button round type="success" class="fab left" @click="back()"
-      ><var-icon name="chevron-left" :size="32"
+      ><var-icon name="chevron-left" :size="24"
     /></var-button>
-
     <span class="index" @click="bottomRef = true">
       <span
         :class="{
@@ -64,9 +63,10 @@
       >/{{ db.length }}
     </span>
     <var-button round type="success" class="fab right" @click="next()"
-      ><var-icon name="chevron-right" :size="32"
+      ><var-icon name="chevron-right" :size="24"
     /></var-button>
   </footer>
+
   <NavBar :type="params.type"></NavBar>
 </template>
 
@@ -188,13 +188,15 @@ const actions = {
 .questions {
   color: black;
   max-height: 75vh;
-  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   .question {
     margin: 0.5rem;
-    max-width: 36px;
-    max-height: 36px;
-    min-width: 36px;
-    min-height: 36px;
+    max-width: 40px;
+    max-height: 40px;
+    min-width: 40px;
+    min-height: 40px;
   }
 }
 .delete {
