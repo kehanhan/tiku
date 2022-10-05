@@ -45,6 +45,7 @@
         </tr>
       </tbody>
     </var-table>
+    <var-button type="success" id="add" @click="add()">添加到错题库</var-button>
   </main>
 
   <footer>
@@ -161,6 +162,24 @@ const check = (answer) => {
     );
   }
 };
+const add = () => {
+  if (!wrongListRef.value.includes(parseInt(idRef.value))) {
+    wrongListRef.value.push(parseInt(idRef.value));
+    localStorage.setItem(
+      params.type + "WrongList",
+      JSON.stringify(wrongListRef.value)
+    );
+    Snackbar.success({
+      content: "添加成功",
+      duration: 500,
+    });
+  } else {
+    Snackbar.error({
+      content: "已经添加过了",
+      duration: 500,
+    });
+  }
+};
 const jump = (index) => {
   idRef.value = index;
   bottomRef.value = false;
@@ -229,6 +248,14 @@ main {
     .text {
       padding: 0.5rem;
     }
+  }
+
+  #add {
+    position: fixed;
+    bottom: 25%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: table;
   }
 }
 
