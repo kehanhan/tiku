@@ -13,6 +13,9 @@
       <button id="vip">货运员</button>
     </router-link>
     <router-link to="/browse/zhuli"> <button>助理值班员</button></router-link>
+    <router-link to="/browse/zhuliHigh">
+      <button>助理值班员(高级)</button></router-link
+    >
   </main>
 </template>
 

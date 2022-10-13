@@ -90,12 +90,14 @@ import NavBar from "@/components/NavBar.vue";
 import huoyunDb from "@/db/huoyun";
 import keyunDb from "@/db/keyun";
 import zhuliDb from "@/db/zhuli";
+import zhuliHighDb from "@/db/zhuli_high";
 
 const { params } = useRoute();
 const hashDb = {
   huoyun: huoyunDb,
   keyun: keyunDb,
   zhuli: zhuliDb,
+  zhuliHigh: zhuliHighDb,
 };
 const hashOption = { 0: "A", 1: "B", 2: "C", 3: "D" };
 
