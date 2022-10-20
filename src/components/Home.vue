@@ -7,14 +7,19 @@
   </header>
   <main>
     <router-link to="/browse/keyun">
-      <button>客运员</button>
+      <button>客运员中级</button>
     </router-link>
     <router-link to="/browse/huoyun">
-      <button id="vip">货运员</button>
+      <button>货运员中级</button>
     </router-link>
-    <router-link to="/browse/zhuli"> <button>助理值班员</button></router-link>
+    <router-link to="/browse/huoyunHigh">
+      <button>货运员高级</button></router-link
+    >
+    <router-link to="/browse/zhuli">
+      <button>助理值班员中级</button></router-link
+    >
     <router-link to="/browse/zhuliHigh">
-      <button>助理值班员(高级)</button></router-link
+      <button>助理值班员高级</button></router-link
     >
   </main>
 </template>
@@ -37,17 +42,9 @@ main {
   }
 
   button {
-    width: 150px;
+    width: 180px;
     margin: 1rem;
     border-radius: 50px;
-  }
-  #vip {
-    font-size: 24px;
-    background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
-    color: white;
-    background-size: 400%;
-    z-index: 1;
-    animation: sun 8s infinite;
   }
 
   @keyframes sun {
