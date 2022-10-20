@@ -88,13 +88,15 @@ import { useRoute } from "vue-router";
 import { Snackbar } from "@varlet/ui";
 import NavBar from "@/components/NavBar.vue";
 import huoyunDb from "@/db/huoyun";
+import huoyunHighDb from "@/db/huoyunHigh";
 import keyunDb from "@/db/keyun";
 import zhuliDb from "@/db/zhuli";
-import zhuliHighDb from "@/db/zhuli_high";
+import zhuliHighDb from "@/db/zhuliHigh";
 
 const { params } = useRoute();
 const hashDb = {
   huoyun: huoyunDb,
+  huoyunHigh: huoyunHighDb,
   keyun: keyunDb,
   zhuli: zhuliDb,
   zhuliHigh: zhuliHighDb,
