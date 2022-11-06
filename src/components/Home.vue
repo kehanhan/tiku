@@ -6,16 +6,19 @@
     <h2>铁路职业考试题库</h2>
   </header>
   <main>
-    <router-link to="/browse/keyun">
+    <router-link to="/browse/keyunMedium">
       <button>客运员中级</button>
     </router-link>
-    <router-link to="/browse/huoyun">
+    <router-link to="/browse/huoyunLow">
+      <button>货运员低级</button>
+    </router-link>
+    <router-link to="/browse/huoyunMedium">
       <button>货运员中级</button>
     </router-link>
     <router-link to="/browse/huoyunHigh">
       <button>货运员高级</button></router-link
     >
-    <router-link to="/browse/zhuli">
+    <router-link to="/browse/zhuliMedium">
       <button>助理值班员中级</button></router-link
     >
     <router-link to="/browse/zhuliHigh">

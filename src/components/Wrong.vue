@@ -84,9 +84,10 @@
 
 <script setup>
 import { ref } from "vue";
-import { useRoute } from "vue-router";
 import { Snackbar } from "@varlet/ui";
+import { useRoute } from "vue-router";
 import NavBar from "@/components/NavBar.vue";
+import huoyunLow from "@/db/huoyun/low";
 import huoyunMedium from "@/db/huoyun/medium";
 import huoyunHigh from "@/db/huoyun/high";
 import keyunMedium from "@/db/keyun/medium";
@@ -95,11 +96,12 @@ import zhuliHigh from "@/db/zhuli/high";
 
 const { params } = useRoute();
 const hashDb = {
-  huoyun: huoyunMedium,
-  huoyunHigh: huoyunHigh,
-  keyun: keyunMedium,
-  zhuli: zhuliMedium,
-  zhuliHigh: zhuliHigh,
+  huoyunLow,
+  huoyunMedium,
+  huoyunHigh,
+  keyunMedium,
+  zhuliMedium,
+  zhuliHigh,
 };
 const hashOption = { 0: "A", 1: "B", 2: "C", 3: "D" };
 
