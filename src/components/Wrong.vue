@@ -87,19 +87,19 @@ import { ref } from "vue";
 import { useRoute } from "vue-router";
 import { Snackbar } from "@varlet/ui";
 import NavBar from "@/components/NavBar.vue";
-import huoyunDb from "@/db/huoyun";
-import huoyunHighDb from "@/db/huoyunHigh";
-import keyunDb from "@/db/keyun";
-import zhuliDb from "@/db/zhuli";
-import zhuliHighDb from "@/db/zhuliHigh";
+import huoyunMedium from "@/db/huoyun/medium";
+import huoyunHigh from "@/db/huoyun/high";
+import keyunMedium from "@/db/keyun/medium";
+import zhuliMedium from "@/db/zhuli/medium";
+import zhuliHigh from "@/db/zhuli/high";
 
 const { params } = useRoute();
 const hashDb = {
-  huoyun: huoyunDb,
-  huoyunHigh: huoyunHighDb,
-  keyun: keyunDb,
-  zhuli: zhuliDb,
-  zhuliHigh: zhuliHighDb,
+  huoyun: huoyunMedium,
+  huoyunHigh: huoyunHigh,
+  keyun: keyunMedium,
+  zhuli: zhuliMedium,
+  zhuliHigh: zhuliHigh,
 };
 const hashOption = { 0: "A", 1: "B", 2: "C", 3: "D" };
 
