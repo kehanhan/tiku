@@ -24,6 +24,10 @@ import huoyunHigh from "@/db/huoyun/high";
 import keyunMedium from "@/db/keyun/medium";
 import zhuliMedium from "@/db/zhuli/medium";
 import zhuliHigh from "@/db/zhuli/high";
+import lianjieLow from "@/db/lianjie/low";
+import lianjieMedium from "@/db/lianjie/medium";
+import chezhanMedium from "@/db/chezhan/medium";
+import chezhanHigh from "@/db/chezhan/high";
 
 const { params } = useRoute();
 const hashDb = {
@@ -33,6 +37,10 @@ const hashDb = {
   keyunMedium,
   zhuliMedium,
   zhuliHigh,
+  lianjieLow,
+  lianjieMedium,
+  chezhanMedium,
+  chezhanHigh
 };
 const hashOption = { 0: "A", 1: "B", 2: "C", 3: "D" };
 

@@ -16,14 +16,26 @@
       <button>货运员中级</button>
     </router-link>
     <router-link to="/browse/huoyunHigh">
-      <button>货运员高级</button></router-link
-    >
+      <button>货运员高级</button>
+    </router-link>
+    <router-link to="/browse/lianjieLow">
+      <button>连接员初级</button>
+    </router-link>
+    <router-link to="/browse/lianjieMedium">
+      <button>连接员中级</button>
+    </router-link>
     <router-link to="/browse/zhuliMedium">
-      <button>助理值班员中级</button></router-link
-    >
+      <button>助理值班员中级</button>
+    </router-link>
     <router-link to="/browse/zhuliHigh">
-      <button>助理值班员高级</button></router-link
-    >
+      <button>助理值班员高级</button>
+    </router-link>
+    <router-link to="/browse/chezhanMedium">
+      <button>车站值班员中级</button>
+    </router-link>
+    <router-link to="/browse/chezhanHigh">
+      <button>车站值班员高级</button>
+    </router-link>
   </main>
 </template>
 
