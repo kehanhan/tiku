@@ -18,6 +18,9 @@
     <router-link to="/browse/huoyunHigh">
       <button>货运员高级</button>
     </router-link>
+    <router-link to="/browse/huojianMedium">
+      <button>货运检查员中级</button>
+    </router-link>
     <router-link to="/browse/lianjieLow">
       <button>连接员初级</button>
     </router-link>

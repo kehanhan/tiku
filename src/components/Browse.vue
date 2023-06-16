@@ -21,6 +21,7 @@ import NavBar from "@/components/NavBar.vue";
 import huoyunLow from "@/db/huoyun/low";
 import huoyunMedium from "@/db/huoyun/medium";
 import huoyunHigh from "@/db/huoyun/high";
+import huojianMedium from "@/db/huojian/medium";
 import keyunMedium from "@/db/keyun/medium";
 import zhuliMedium from "@/db/zhuli/medium";
 import zhuliHigh from "@/db/zhuli/high";
@@ -34,6 +35,7 @@ const hashDb = {
   huoyunLow,
   huoyunMedium,
   huoyunHigh,
+  huojianMedium,
   keyunMedium,
   zhuliMedium,
   zhuliHigh,
