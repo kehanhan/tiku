@@ -10,7 +10,7 @@
       <button>客运员中级</button>
     </router-link>
     <router-link to="/browse/huoyunLow">
-      <button>货运员低级</button>
+      <button>货运员初级</button>
     </router-link>
     <router-link to="/browse/huoyunMedium">
       <button>货运员中级</button>
